@@ -3,9 +3,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
-// TODO: Add CSS loaders and babel to webpack.
-
+// This is the webpack configuration file
 module.exports = () => {
   return {
     mode: 'development',
@@ -18,15 +16,17 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      // This plugin generates an HTML file that includes the webpack bundles
       new HtmlWebpackPlugin({
         template: './index.html',
         title: 'JATE'
       }),
-
+      // This plugin generates the service worker file we need to make our PWA work offline
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'src-sw.js'
       }),
+      // This plugin generates the manifest file we need to make our PWA installable
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
@@ -47,7 +47,7 @@ module.exports = () => {
       }),
       
     ],
-
+    // adds support for CSS files
     module: {
       rules: [
         {
