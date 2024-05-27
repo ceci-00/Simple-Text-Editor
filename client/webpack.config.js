@@ -3,7 +3,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// This is the webpack configuration file
+// This is the webpack configuration file in which we define the entry point, output, and plugins
 module.exports = () => {
   return {
     mode: 'development',
