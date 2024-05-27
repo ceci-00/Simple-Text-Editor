@@ -6,7 +6,7 @@ const { ExpirationPlugin } = require('workbox-expiration');
 const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
 
 precacheAndRoute(self.__WB_MANIFEST);
-
+// This will cache the assets with a cache-first strategy
 const pageCache = new CacheFirst({
   cacheName: 'page-cache',
   plugins: [
@@ -18,7 +18,7 @@ const pageCache = new CacheFirst({
     }),
   ],
 });
-
+// cache the pages on install
 warmStrategyCache({
   urls: ['/index.html', '/'],
   strategy: pageCache,
@@ -26,7 +26,7 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
-// TODO: Implement asset caching
+// This will cache the assets with a stale-while-revalidate strategy
 registerRoute(
   // Here we define the callback function that will filter the requests we want to cache (in this case, JS and CSS files)
   ({ request }) => ['style', 'script', 'worker', 'image'].includes(request.destination),
